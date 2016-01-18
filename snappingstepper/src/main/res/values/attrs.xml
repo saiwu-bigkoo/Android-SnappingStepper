@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SnappingStepper">
+        <attr name="min" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="value" format="integer"/>
+        <attr name="text" format="string"/>
+        <attr name="mode" format="enum">
+            <enum name="auto" value="0"/>
+            <enum name="custom" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

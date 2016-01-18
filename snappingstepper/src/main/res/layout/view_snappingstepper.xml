@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivStepperMinus"
+        android:layout_width="@dimen/snappingstepper_width_button"
+        android:layout_height="match_parent"
+        android:background="@drawable/sl_snappingstepper_button"
+        android:clickable="true"
+        android:padding="@dimen/snappingstepper_padding_button"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_snappingstepper_minus" />
+
+    <ImageView
+        android:id="@+id/ivStepperPlus"
+        android:layout_width="@dimen/snappingstepper_width_button"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/sl_snappingstepper_button"
+        android:clickable="true"
+        android:padding="@dimen/snappingstepper_padding_button"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_snappingstepper_plus" />
+
+    <TextView
+        android:id="@+id/tvStepperContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_toLeftOf="@id/ivStepperPlus"
+        android:layout_toRightOf="@id/ivStepperMinus"
+        android:background="@color/cl_snappingstepper_text_bg"
+        android:textColor="@color/cl_snappingstepper_text"
+        android:textSize="@dimen/snappingstepper_textSize" />
+
+
+</RelativeLayout>
