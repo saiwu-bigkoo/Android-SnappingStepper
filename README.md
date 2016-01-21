@@ -1,3 +1,5 @@
+[![Android Gems](http://www.android-gems.com/badge/saiwu-bigkoo/Android-SnappingStepper.svg?branch=master)](http://www.android-gems.com/lib/saiwu-bigkoo/Android-SnappingStepper)
+
 # Android-SnappingStepper
 一种漂亮的UI控件，能更灵活的控制数字的增减。
 对应的iOS版 [SnappingStepper](https://github.com/yannickl/SnappingStepper)
