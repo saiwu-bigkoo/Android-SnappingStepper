@@ -6,8 +6,18 @@
 
 ####使用gradle 依赖:
 ```java
-compile 'com.bigkoo:snappingstepper:1.0.0'
+compile 'com.bigkoo:snappingstepper:1.0.1'
 ```
 
 ## Demo 图片
 ![](https://github.com/saiwu-bigkoo/Android-SnappingStepper/blob/master/preview/snappingstepperdemo.gif)
+
+>## 更新说明
+
+>v1.0.0 
+ - 基础功能  <br />
+
+>v1.0.1 
+ - 增加xml设置步长、按钮图片、按钮资源、内容背景、内容字体、控件背景<br />
+ - 修改默认的快速改变触发间隔时间<br />
+ - 添加修改后demo  <br />
