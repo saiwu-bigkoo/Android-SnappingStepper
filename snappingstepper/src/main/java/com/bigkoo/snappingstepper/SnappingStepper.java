@@ -2,6 +2,7 @@ package com.bigkoo.snappingstepper;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,7 +12,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bigkoo.snappingstepper.listener.SnappingStepperValueChangeListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -31,10 +31,10 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
     private boolean stepTouch = false;//是否按着，判断是否还要继续更新数值和界面
 
     //按下后多少间隔触发快速改变模式
-    private static final long STEPSPEEDCHANGEDURATION = 2000;
+    private static final long STEPSPEEDCHANGEDURATION = 1000;
     private static long UPDATEDURATIONSLOW = 300;//数值更新频率-慢
     private static long UPDATEDURATIONFAST = 100;//数值更新频率-快
-    private int valueSlowStep = 1;//慢速递增值
+    private int valueSlowStep = 1;//慢速递增值 步长
 
     //按下的初始x值
     private float startX = 0;
@@ -75,7 +75,6 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
     private int minValue = 0;
     private int maxValue = 100;
 
-
     public SnappingStepper(Context context){
         this(context, null);
     }
@@ -86,7 +85,22 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
 
     private void initViews(AttributeSet attrs) {
 
+
+        LayoutInflater.from(getContext()).inflate(R.layout.view_snappingstepper, this, true);
+        tvStepperContent = (TextView) findViewById(R.id.tvStepperContent);
+        ivStepperMinus = (ImageView) findViewById(R.id.ivStepperMinus);
+        ivStepperPlus = (ImageView) findViewById(R.id.ivStepperPlus);
+
         String text = "";
+         Drawable background =null;
+         Drawable buttonBackground =null;
+         Drawable contentBackground =null;
+         Drawable leftButtonResources =null;
+         Drawable rightButtonResources =null;
+         Drawable leftButtonBackground =null;
+         Drawable rightButtonBackground =null;
+        int contentTextColor = getResources().getColor(R.color.cl_snappingstepper_text);
+        float contentTextSize = 0;
         if(attrs !=null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.SnappingStepper);
             int modeValue = a.getInt(R.styleable.SnappingStepper_mode, Mode.AUTO.getValue());
@@ -94,20 +108,59 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
             minValue = a.getInt(R.styleable.SnappingStepper_min, minValue);
             maxValue = a.getInt(R.styleable.SnappingStepper_max, maxValue);
             value = a.getInt(R.styleable.SnappingStepper_value, value);
+            valueSlowStep = a.getInt(R.styleable.SnappingStepper_step, valueSlowStep);
+            if(valueSlowStep <= 0) valueSlowStep = 1;
             text = a.getString(R.styleable.SnappingStepper_text);
 
+            background = a.getDrawable(R.styleable.SnappingStepper_stepper_background);
+            contentBackground = a.getDrawable(R.styleable.SnappingStepper_stepper_contentBackground);
+            leftButtonResources = a.getDrawable(R.styleable.SnappingStepper_stepper_leftButtonResources);
+            rightButtonResources = a.getDrawable(R.styleable.SnappingStepper_stepper_rightButtonResources);
+            leftButtonBackground = a.getDrawable(R.styleable.SnappingStepper_stepper_leftButtonBackground);
+            rightButtonBackground = a.getDrawable(R.styleable.SnappingStepper_stepper_rightButtonBackground);
+
+            contentTextColor = a.getColor(R.styleable.SnappingStepper_stepper_contentTextColor, contentTextColor);
+
+            System.out.println("contentTextSize befor:"+contentTextSize);
+            contentTextSize = a.getFloat(R.styleable.SnappingStepper_stepper_contentTextSize, 0);
+            System.out.println("contentTextSize after:"+contentTextSize);
             a.recycle();
         }
-        setBackgroundResource(R.color.cl_snappingstepper_button_press);
-        LayoutInflater.from(getContext()).inflate(R.layout.view_snappingstepper, this, true);
-        tvStepperContent = (TextView) findViewById(R.id.tvStepperContent);
-        ivStepperMinus = (ImageView) findViewById(R.id.ivStepperMinus);
-        ivStepperPlus = (ImageView) findViewById(R.id.ivStepperPlus);
+
+        if(background != null){
+            setBackgroundDrawable(background);
+        }else{
+            setBackgroundResource(R.color.cl_snappingstepper_button_press);
+        }
+
+
+        if(contentBackground != null){
+            setContentBackground(contentBackground);
+        }
+        tvStepperContent.setTextColor(contentTextColor);
+        if(contentTextSize>0)
+            setContentTextSize(contentTextSize);
+
+        if(leftButtonBackground!=null){
+            ivStepperMinus.setBackgroundDrawable(leftButtonBackground);
+        }
+        if(rightButtonBackground!=null){
+            ivStepperPlus.setBackgroundDrawable(rightButtonBackground);
+        }
+
+        if (leftButtonResources != null){
+            setLeftButtonResources(leftButtonResources);
+        }
+        if(rightButtonResources != null){
+            setRightButtonResources(rightButtonResources);
+        }
+
         if(mode == Mode.AUTO)//AUTO模式，写数值到滑动条上
             tvStepperContent.setText(String.valueOf(value));
         else
             tvStepperContent.setText(text);
-        //设置后onclick产生的点击状态会实效
+
+        //设置后onclick产生的点击状态会失效
         ivStepperMinus.setOnTouchListener(this);
         ivStepperPlus.setOnTouchListener(this);
         setOnTouchListener(this);
@@ -348,11 +401,30 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
     }
 
     /**
+     * 获取步长
+     * @return
+     */
+    public int getValueSlowStep() {
+        return valueSlowStep;
+    }
+    /**
+     * 设置步长
+     * @return
+     */
+    public void setValueSlowStep(int valueSlowStep) {
+        this.valueSlowStep = valueSlowStep;
+    }
+
+    /**
      * 设置中间内容滑条颜色
      * @param resId
      */
     public void setContentBackground(int resId){
         tvStepperContent.setBackgroundResource(resId);
+    }
+
+    public void setContentBackground(Drawable drawable){
+        tvStepperContent.setBackgroundDrawable(drawable);
     }
 
     /**
@@ -398,9 +470,25 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
 
     /**
      * 设置按钮资源
+     * @param drawable
+     */
+    public void setLeftButtonResources(Drawable drawable){
+        ivStepperMinus.setImageDrawable(drawable);
+    }
+
+    /**
+     * 设置按钮资源
      * @param resId
      */
     public void setRightButtonResources(int resId){
         ivStepperPlus.setImageResource(resId);
+    }
+
+    /**
+     * 设置按钮资源
+     * @param drawable
+     */
+    public void setRightButtonResources(Drawable drawable){
+        ivStepperPlus.setImageDrawable(drawable);
     }
 }
