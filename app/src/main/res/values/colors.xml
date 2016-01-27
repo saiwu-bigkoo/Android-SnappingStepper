@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorStepperButtonNormal">#cc482c</color>
-    <color name="colorStepperButtonPress">#92311d</color>
+    <color name="colorStepperButtonPress">#92011d</color>
     <color name="colorStepperContentBg">#f95b3a</color>
     <color name="colorStepperText">#ffffff</color>
 </resources>

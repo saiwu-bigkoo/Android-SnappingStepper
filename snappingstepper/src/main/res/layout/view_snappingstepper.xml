@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/ivStepperMinus"
@@ -34,7 +35,8 @@
         android:layout_toRightOf="@id/ivStepperMinus"
         android:background="@color/cl_snappingstepper_text_bg"
         android:textColor="@color/cl_snappingstepper_text"
-        android:textSize="@dimen/snappingstepper_textSize" />
+        android:textSize="@dimen/snappingstepper_textSize"
+        tools:text="100"/>
 
 
 </RelativeLayout>

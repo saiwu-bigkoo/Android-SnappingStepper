@@ -4,10 +4,20 @@
         <attr name="min" format="integer"/>
         <attr name="max" format="integer"/>
         <attr name="value" format="integer"/>
+        <attr name="step" format="integer"/>
         <attr name="text" format="string"/>
         <attr name="mode" format="enum">
             <enum name="auto" value="0"/>
             <enum name="custom" value="1"/>
         </attr>
+        <attr name="stepper_background" format="color|reference"/>
+        <attr name="stepper_buttonBackground" format="color|reference"/>
+        <attr name="stepper_contentBackground" format="color|reference"/>
+        <attr name="stepper_contentTextColor" format="color"/>
+        <attr name="stepper_contentTextSize" format="float"/>
+        <attr name="stepper_leftButtonBackground" format="color|reference"/>
+        <attr name="stepper_rightButtonBackground" format="color|reference"/>
+        <attr name="stepper_leftButtonResources" format="color|reference"/>
+        <attr name="stepper_rightButtonResources" format="color|reference"/>
     </declare-styleable>
 </resources>

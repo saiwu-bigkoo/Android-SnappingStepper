@@ -37,11 +37,13 @@
             android:id="@+id/stepperCustom"
             stepper:max="200"
             stepper:min="50"
+            stepper:step="5"
             stepper:value="100"
             stepper:mode="custom"
             stepper:text="Move Me"
             android:layout_width="150dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+          />
 
         <TextView
             android:id="@+id/tvValueCustom"
@@ -49,5 +51,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <com.bigkoo.snappingstepper.SnappingStepper
+      android:id="@+id/stepperCustom2"
+      stepper:max="200"
+      stepper:min="50"
+      stepper:step="5"
+      stepper:value="100"
+      android:layout_width="150dp"
+      android:layout_height="40dp"
+      stepper:stepper_background="@color/colorStepperButtonNormal"
+      stepper:stepper_leftButtonBackground="@drawable/sl_steppercustom_button_bg"
+      stepper:stepper_rightButtonBackground="@drawable/sl_steppercustom_button_bg"
+      stepper:stepper_contentBackground="@color/colorStepperContentBg"
+      stepper:stepper_contentTextColor="#0099ff"
+      stepper:stepper_contentTextSize="18"
+      stepper:stepper_leftButtonResources="@drawable/ic_stepper_left"
+      stepper:stepper_rightButtonResources="@drawable/ic_stepper_right"
+      />
 
 </LinearLayout>
