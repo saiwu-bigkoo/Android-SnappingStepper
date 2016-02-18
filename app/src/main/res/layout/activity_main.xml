@@ -70,4 +70,10 @@
       stepper:stepper_rightButtonResources="@drawable/ic_stepper_right"
       />
 
+
+    <Button
+        android:text="open listview"
+        android:onClick="openListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
